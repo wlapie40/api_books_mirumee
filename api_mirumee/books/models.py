@@ -28,7 +28,7 @@ class Books(models.Model):
         editable=False)
     isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=50)
-    author_id = models.ForeignKey(
+    author = models.ForeignKey(
         Authors,
         on_delete=models.CASCADE)
     genres = models.CharField(max_length=30)
@@ -47,7 +47,7 @@ class Rates(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False)
-    book_id = models.ForeignKey(
+    book = models.ForeignKey(
         Books,
         on_delete=models.CASCADE)
     rate = models.IntegerField(validators=[MinValueValidator(1),
