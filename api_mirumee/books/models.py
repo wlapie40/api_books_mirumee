@@ -1,10 +1,11 @@
 import uuid
 
+from django.core.validators import (MinValueValidator,
+                                    MaxValueValidator)
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 
-class Author(models.Model):
+class Authors(models.Model):
     id = models.UUIDField(
         primary_key=True,
         default=uuid.uuid4,
@@ -27,18 +28,18 @@ class Books(models.Model):
         editable=False)
     isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=50)
-    author = models.ForeignKey(
-        Author,
+    author_id = models.ForeignKey(
+        Authors,
         on_delete=models.CASCADE)
     genres = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return "id: {0}, isbn: {1}, title: {2}, author: {3}, genres: {4}, created_at: {5}"\
-            .format(self.id, self.isbn, self.title, self.author, self.genres, self.created_at)
+            .format(self.id, self.isbn, self.title, self.author_id, self.genres, self.created_at)
 
     class Meta:
-        ordering = ['isbn', 'author']
+        ordering = ['isbn']
 
 
 class Rates(models.Model):
@@ -46,7 +47,7 @@ class Rates(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False)
-    book = models.ForeignKey(
+    book_id = models.ForeignKey(
         Books,
         on_delete=models.CASCADE)
     rate = models.IntegerField(validators=[MinValueValidator(1),
@@ -56,7 +57,7 @@ class Rates(models.Model):
 
     def __str__(self):
         return "book: {0}, rate: {1}, text: {2}, pub_date: {3}"\
-            .format(self.book, self.rate, self.text, self.pub_date)
+            .format(self.book_id, self.rate, self.text, self.pub_date)
 
     class Meta:
         ordering = ['pub_date']
