@@ -16,6 +16,7 @@ class AuthorViewV1(viewsets.ModelViewSet):
 class BooksViewV1(viewsets.ModelViewSet):
     queryset = Books.objects.all()
     serializer_class = BooksSerializer
+    lookup_field = 'title'
 
 
 class RatesViewV1(viewsets.ModelViewSet):

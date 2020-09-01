@@ -3,6 +3,7 @@ from books.models import (Authors,
                           Rates)
 from rest_framework import status
 from rest_framework.test import APITestCase
+from pprint import pprint
 
 
 class AuthorTestV1(APITestCase):
@@ -54,6 +55,5 @@ class BooksTestV1(APITestCase):
         self.assertEqual(Books.objects.count(), 2)
 
     def test_list_book_by_title(self):
-        response = self.client.get("http://localhost:8000/api/v1/books/Test")
+        response = self.client.get("http://localhost:8000/api/v1/books/Python Image Processing Cookbook/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        print(response.json)
