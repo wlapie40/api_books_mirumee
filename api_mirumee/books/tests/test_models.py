@@ -33,11 +33,10 @@ class RatesTest(TestCase):
         book_1 = Books.objects.create(
             title="Hands-On Image Processing with Python", isbn="9781789341850", author=author_1)
         Rates.objects.create(book=book_1, rate=4, text="not bad")
+        Rates.objects.create(book=book_1, rate=3, text="test2")
 
     def test_books_creation(self):
-        pass
-        # opinion_1 = Opinions.objects.get(isbn="9781789341850")
-        # print(opinion_1)
-
+        rates = Rates.objects.all()
+        self.assertTrue(len(rates), 2)
 
 

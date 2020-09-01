@@ -42,8 +42,12 @@ class Books(models.Model):
 
 
 class Rates(models.Model):
-    book = models.OneToOneField(
-        Books, primary_key=True,
+    id = models.UUIDField(
+        primary_key=True,
+        default=uuid.uuid4,
+        editable=False)
+    book = models.ForeignKey(
+        Books,
         on_delete=models.CASCADE)
     rate = models.IntegerField(validators=[MinValueValidator(1),
                                        MaxValueValidator(5)])
