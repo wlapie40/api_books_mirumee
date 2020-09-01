@@ -3,7 +3,6 @@ from books.models import (Authors,
                           Rates)
 from rest_framework import status
 from rest_framework.test import APITestCase
-from pprint import pprint
 
 
 class AuthorTestV1(APITestCase):
@@ -57,3 +56,30 @@ class BooksTestV1(APITestCase):
     def test_list_book_by_title(self):
         response = self.client.get("http://localhost:8000/api/v1/books/Python Image Processing Cookbook/")
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+
+class RatesTestV1(APITestCase):
+    def setUp(self):
+        author_1 = Authors.objects.create(author="Sandipan Dey", id="f40f097a-36fc-47b8-bcea-5f3f25a919df")
+        book_1 = Books.objects.create(id="3fec8f9d-b439-4d64-b219-21b77d017850",
+                             title="Python Image Processing Cookbook",
+                             isbn="9781789537147",
+                             author=author_1,
+                             genres="Education")
+        Rates.objects.create(book_id=book_1,
+                             rate=4,
+                             text="Education")
+
+    def test_create_rate(self):
+        data = {"book_id": "3fec8f9d-b439-4d64-b219-21b77d017850",
+                "rate": "3",
+                "text": "test rate"}
+        response = self.client.post("http://localhost:8000/api/v1/rates/", data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertEqual(Rates.objects.count(), 2)
+        self.assertEqual(Rates.objects.get(text="test rate").text, "test rate")
+
+    def test_list_rates(self):
+        response = self.client.get("http://localhost:8000/api/v1/rates/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(Rates.objects.count(), 1)

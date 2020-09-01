@@ -47,7 +47,7 @@ class Rates(models.Model):
         primary_key=True,
         default=uuid.uuid4,
         editable=False)
-    book = models.ForeignKey(
+    book_id = models.ForeignKey(
         Books,
         on_delete=models.CASCADE)
     rate = models.IntegerField(validators=[MinValueValidator(1),
