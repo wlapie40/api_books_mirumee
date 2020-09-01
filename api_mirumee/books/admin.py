@@ -10,11 +10,11 @@ class AuthorAdmin(admin.ModelAdmin):
 
 
 class BooksAdmin(admin.ModelAdmin):
-    list_display = ("id", "isbn", "title", "author_id", "genres", "created_at")
+    list_display = ("id", "isbn", "title", "author", "genres", "created_at")
 
 
 class RatesAdmin(admin.ModelAdmin):
-    list_display = ("book_id", "rate", "text", "pub_date")
+    list_display = ("book", "rate", "text", "pub_date")
 
 
 admin.site.register(Authors, AuthorAdmin)

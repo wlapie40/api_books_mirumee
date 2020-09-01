@@ -15,10 +15,10 @@ class AuthorSerializer(serializers.ModelSerializer):
 class BooksSerializer(serializers.ModelSerializer):
     class Meta:
         model = Books
-        fields = ("id", "isbn", "title", "author_id", "genres", "created_at")
+        fields = ("id", "isbn", "title", "author", "genres", "created_at")
 
 
 class RatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rates
-        fields = ("id", "book_id", "rate", "text", "pub_date")
+        fields = ("id", "book", "rate", "text", "pub_date")

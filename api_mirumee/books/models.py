@@ -36,7 +36,7 @@ class Books(models.Model):
 
     def __str__(self):
         return "id: {0}, isbn: {1}, title: {2}, author: {3}, genres: {4}, created_at: {5}"\
-            .format(self.id, self.isbn, self.title, self.author_id, self.genres, self.created_at)
+            .format(self.id, self.isbn, self.title, self.author, self.genres, self.created_at)
 
     class Meta:
         ordering = ['isbn']
