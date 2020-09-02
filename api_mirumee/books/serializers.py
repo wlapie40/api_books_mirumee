@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import (Authors,
                      Books,
                      Rates)
@@ -7,7 +8,7 @@ from .models import (Authors,
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Authors
-        fields = ("id", "author", "created_at")
+        fields = ("id", "author", "created_at",)
 
 
 class RatesSerializer(serializers.ModelSerializer):

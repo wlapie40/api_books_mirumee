@@ -1,12 +1,18 @@
 from books.models import (Authors,
                           Books,
-                          Rates)
+                          Rates,)
 from rest_framework import status
-from rest_framework.test import APITestCase
+from rest_framework.test import APITestCase, APIClient
+from django.contrib.auth.models import User
 
 
 class AuthorTestV1(APITestCase):
     def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user('testuser', email='testuser@test.com', password='testing')
+        self.user.save()
+        self.client.login(username='testuser', password='testing')
+
         author_1 = Authors.objects.create(author="Sandipan Dey", id="f40f097a-36fc-47b8-bcea-5f3f25a919df")
         Books.objects.create(title="Python Image Processing Cookbook",
                              isbn="9781789537147",
@@ -33,6 +39,11 @@ class AuthorTestV1(APITestCase):
 
 class BooksTestV1(APITestCase):
     def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user('testuser', email='testuser@test.com', password='testing')
+        self.user.save()
+        self.client.login(username='testuser', password='testing')
+
         author_1 = Authors.objects.create(author="Sandipan Dey", id="f40f097a-36fc-47b8-bcea-5f3f25a919df")
         Books.objects.create(title="Python Image Processing Cookbook",
                              isbn="9781789537147",
@@ -70,6 +81,11 @@ class BooksTestV1(APITestCase):
 
 class RatesTestV1(APITestCase):
     def setUp(self):
+        self.client = APIClient()
+        self.user = User.objects.create_user('testuser', email='testuser@test.com', password='testing')
+        self.user.save()
+        self.client.login(username='testuser', password='testing')
+
         author_1 = Authors.objects.create(author="Sandipan Dey", id="f40f097a-36fc-47b8-bcea-5f3f25a919df")
         book_1 = Books.objects.create(id="3fec8f9d-b439-4d64-b219-21b77d017850",
                              title="Python Image Processing Cookbook",

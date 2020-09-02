@@ -1,11 +1,11 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, permissions
 
 from .models import (Authors,
                      Books,
-                     Rates)
+                     Rates, )
 from .serializers import (AuthorSerializer,
                           BooksSerializer,
-                          RatesSerializer,)
+                          RatesSerializer, )
 
 
 class AuthorViewV1(viewsets.ModelViewSet):
