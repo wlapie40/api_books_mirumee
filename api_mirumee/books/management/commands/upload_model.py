@@ -8,9 +8,11 @@ from .logger import logger
 class ModelUploader:
 
     @classmethod
-    def add_book_model(cls, data: list):
+    def add_books_model(cls, data: list):
         """
-        Add Book models to a database (specified in settings.py)
+        Add records to the database specified in the settings.py.
+        With the very first step function checks if a provided author exists in the database,
+        in case there is no result, the new author is being created based on received data
         :param data:
         """
         try:
@@ -25,16 +27,18 @@ class ModelUploader:
                 if book:
                     logger.info(f'ISBN {row[0]} exists')
                     continue
-                logger.info(f'Adding book with ISBN {row[0]}')
                 author = Authors.objects.get(author=row[2])
                 Books.objects.create(title=row[1], isbn=row[0], author=author, genres=row[3])
+                logger.info(f'Added book with ISBN: {row[0]}')
         except Exception as e:
             logger.error(f"msg: {e}")
 
     @classmethod
     def add_rates_model(cls, data: list):
         """
-          Add Rate models to database (specified in settings.py)
+          Add records to the database specified in the settings.py.
+          With the very first step function checks, if a provided ISBN number exists in the database,
+          in case there is no result, the function skips the record and moves to the next one.
           :param data:
           """
         try:

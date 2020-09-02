@@ -16,10 +16,10 @@ class Command(BaseCommand):
     def check_file_format(filename: str = None):
         """
         For security reasons, we want to be sure that .csv
-        file is being provided not .sh or any other harm file.
+        file is being provided not .sh or any other potentially harm file.
         :param filename: the name of the file to check
-        :return: True if the provided file has the .csv extension
-        in any other case False is being returned
+        :return: True if the provided file has the expected .csv extension
+        in any other case False is being returned.
         """
         accepted_file_types = ["csv"]
         if filename.split(".")[-1] in accepted_file_types:
@@ -42,9 +42,9 @@ class Command(BaseCommand):
 
     @staticmethod
     @contextmanager
-    def managed_file(file):
+    def managed_file(*args):
         try:
-            f = open(file)
+            f = open(*args)
             yield f
         finally:
             f.close()
@@ -60,6 +60,6 @@ class Command(BaseCommand):
                 next(csvfile)
                 reader = csv.reader(csvfile, delimiter=';', quotechar="'")
                 model = options['model'][0]
-                ModelUploader().add_book_model(reader) if model == "Books" else ModelUploader.add_rates_model(reader)
+                ModelUploader().add_books_model(reader) if model == "Books" else ModelUploader.add_rates_model(reader)
         else:
             raise ValueError("Wrong file format")
