@@ -14,7 +14,7 @@ class BooksAdmin(admin.ModelAdmin):
 
 
 class RatesAdmin(admin.ModelAdmin):
-    list_display = ("book_id", "rate", "text", "pub_date")
+    list_display = ("id", "book_id", "rate", "text", "pub_date")
 
 
 admin.site.register(Authors, AuthorAdmin)

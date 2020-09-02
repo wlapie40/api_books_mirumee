@@ -56,8 +56,8 @@ class Rates(models.Model):
     pub_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "book: {0}, rate: {1}, text: {2}, pub_date: {3}"\
-            .format(self.book_id, self.rate, self.text, self.pub_date)
+        return "id: {0}, book_id: {1}, rate: {2}, text: {3}, pub_date: {4}"\
+            .format(self.id, self.book_id, self.rate, self.text, self.pub_date)
 
     class Meta:
         ordering = ['pub_date']
