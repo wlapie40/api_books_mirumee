@@ -22,7 +22,6 @@ class Command(BaseCommand):
         in any other case False is being returned
         """
         accepted_file_types = ["csv"]
-
         if filename.split(".")[-1] in accepted_file_types:
             return True
         return False

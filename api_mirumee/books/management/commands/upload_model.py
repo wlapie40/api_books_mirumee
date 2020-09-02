@@ -17,7 +17,7 @@ class ModelUploader:
             for row in data:
                 author = Authors.objects.filter(author=row[2]).first()
                 if not author:
-                    logger.info(f"There is record: {row[2]}")
+                    logger.info(f"There is no record: {row[2]}")
                     Authors.objects.create(author=row[2])
                     logger.info(f"{row[2]} added")
 
@@ -42,7 +42,7 @@ class ModelUploader:
                 book = Books.objects.filter(isbn=row[0]).first()
                 if book:
                     book_instance = Books.objects.get(isbn=row[0])
-                    Rates.objects.create(book_id=book_instance,
+                    Rates.objects.create(book=book_instance,
                                          rate=row[1],
                                          text=row[2])
                     logger.info(f'Rates added')

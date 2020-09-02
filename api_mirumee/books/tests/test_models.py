@@ -34,8 +34,8 @@ class RatesTest(TestCase):
         author_1 = Authors.objects.create(author="Sandipan Dey", id="f40f097a-36fc-47b8-bcea-5f3f25a919df")
         book_1 = Books.objects.create(
             title="Hands-On Image Processing with Python", isbn="9781789341850", author=author_1)
-        Rates.objects.create(book_id=book_1, rate=4, text="not bad")
-        Rates.objects.create(book_id=book_1, rate=3, text="test2")
+        Rates.objects.create(book=book_1, rate=4, text="not bad")
+        Rates.objects.create(book=book_1, rate=3, text="test2")
 
     def test_books_creation(self):
         rates = Rates.objects.all()

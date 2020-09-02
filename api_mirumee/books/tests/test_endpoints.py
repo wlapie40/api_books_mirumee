@@ -76,12 +76,12 @@ class RatesTestV1(APITestCase):
                              isbn="9781789537147",
                              author=author_1,
                              genres="Education")
-        Rates.objects.create(book_id=book_1,
+        Rates.objects.create(book=book_1,
                              rate=4,
                              text="Not bad")
 
     def test_create_rate(self):
-        data = {"book_id": "3fec8f9d-b439-4d64-b219-21b77d017850",
+        data = {"book": "3fec8f9d-b439-4d64-b219-21b77d017850",
                 "rate": "3",
                 "text": "test rate"}
         response = self.client.post("http://localhost:8000/api/v1/rates/", data, format='json')

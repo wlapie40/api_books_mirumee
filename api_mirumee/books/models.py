@@ -22,15 +22,10 @@ class Authors(models.Model):
 
 
 class Books(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     isbn = models.CharField(max_length=13)
     title = models.CharField(max_length=50)
-    author = models.ForeignKey(
-        Authors,
-        on_delete=models.CASCADE)
+    author = models.ForeignKey(Authors, on_delete=models.CASCADE)
     genres = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now=True)
 
@@ -43,21 +38,15 @@ class Books(models.Model):
 
 
 class Rates(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False)
-    book_id = models.ForeignKey(
-        Books,
-        on_delete=models.CASCADE)
-    rate = models.IntegerField(validators=[MinValueValidator(1),
-                                       MaxValueValidator(5)])
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    book = models.ForeignKey(Books, related_name="comments", on_delete=models.CASCADE)
+    rate = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
     text = models.TextField(max_length=300)
     pub_date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "id: {0}, book_id: {1}, rate: {2}, text: {3}, pub_date: {4}"\
-            .format(self.id, self.book_id, self.rate, self.text, self.pub_date)
+        return "id: {0}, book: {1}, rate: {2}, text: {3}, pub_date: {4}"\
+            .format(self.id, self.book, self.rate, self.text, self.pub_date)
 
     class Meta:
         ordering = ['pub_date']

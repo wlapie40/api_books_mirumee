@@ -5,7 +5,7 @@ from .models import (Authors,
                      Rates)
 from .serializers import (AuthorSerializer,
                           BooksSerializer,
-                          RatesSerializer)
+                          RatesSerializer,)
 
 
 class AuthorViewV1(viewsets.ModelViewSet):
@@ -22,4 +22,3 @@ class BooksViewV1(viewsets.ModelViewSet):
 class RatesViewV1(viewsets.ModelViewSet):
     queryset = Rates.objects.all()
     serializer_class = RatesSerializer
-

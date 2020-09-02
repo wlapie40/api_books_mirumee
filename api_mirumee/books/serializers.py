@@ -7,18 +7,18 @@ from .models import (Authors,
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Authors
-        fields = ("id",
-                  "author",
-                  "created_at")
-
-
-class BooksSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Books
-        fields = ("id", "isbn", "title", "author", "genres", "created_at")
+        fields = ("id", "author", "created_at")
 
 
 class RatesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rates
-        fields = ("id", "book_id", "rate", "text", "pub_date")
+        fields = "__all__"
+
+
+class BooksSerializer(serializers.ModelSerializer):
+    comments = RatesSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Books
+        fields = ("id", "isbn", "title", "author", "genres", "created_at", "comments",)
